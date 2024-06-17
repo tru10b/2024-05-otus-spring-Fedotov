@@ -11,5 +11,7 @@ public class Application {
         var testRunnerService = context.getBean(TestRunnerService.class);
         testRunnerService.run();
 
+
+
     }
 }

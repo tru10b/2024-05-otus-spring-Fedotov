@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 @RequiredArgsConstructor
@@ -27,7 +28,7 @@ public class CsvQuestionDao implements QuestionDao {
         ClassLoader classLoader = getClass().getClassLoader();
 
         try (InputStream streamFromResources = classLoader.getResourceAsStream(appProperties.getTestFileName())) {
-            InputStreamReader streamReader = new InputStreamReader(streamFromResources);
+            InputStreamReader streamReader = new InputStreamReader(Objects.requireNonNull(streamFromResources));
             CsvToBeanBuilder<QuestionDto> csvToBeanBuilder = new CsvToBeanBuilder<>(streamReader);
             questionsDtoParsed = csvToBeanBuilder
                     .withSkipLines(1)
@@ -35,7 +36,7 @@ public class CsvQuestionDao implements QuestionDao {
                     .withSeparator(';').build()
                     .parse();
             System.out.println();
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new QuestionReadException("Error during questions reading");
         }
 
