@@ -38,18 +38,19 @@ public class TestServiceImpl implements TestService {
         if (!question.answers().isEmpty()) {
             ioService.printLine("List of answers:");
             for (int i = 0; i < question.answers().size(); i++) {
-                ioService.printLine(i + " " + question.answers().get(i).text());
+                int j = i + 1;
+                ioService.printLine(j + " " + question.answers().get(i).text());
             }
         }
     }
 
     private int getAnswer(Question question) {
-        return ioService.readIntForRangeWithPrompt(0, question.answers().size() - 1,
+        return ioService.readIntForRangeWithPrompt(1, question.answers().size(),
                 "Choose your answer:", "Wrong input");
     }
 
     private boolean isCorrectAnswer(Question question, int answerNumber) {
-        return question.answers().get(answerNumber).isCorrect();
+        return question.answers().get(answerNumber - 1).isCorrect();
     }
 
 }
