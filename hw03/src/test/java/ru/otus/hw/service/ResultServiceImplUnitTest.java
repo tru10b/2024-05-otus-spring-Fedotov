@@ -34,7 +34,7 @@ class ResultServiceImplUnitTest {
 
         resultServiceImplTest.showResult(testResult);
 
-        Mockito.verify(ioService).printLine("Congratulations! You passed test!");
+        Mockito.verify(ioService).printLineLocalized("ResultService.passed.test");
     }
 
     @Test
@@ -48,6 +48,6 @@ class ResultServiceImplUnitTest {
 
         resultServiceImplTest.showResult(testResult);
 
-        Mockito.verify(ioService).printLine("Sorry. You fail test.");
+        Mockito.verify(ioService).printLineLocalized("ResultService.fail.test");
     }
 }
