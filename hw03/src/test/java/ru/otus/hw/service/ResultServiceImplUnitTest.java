@@ -18,7 +18,7 @@ class ResultServiceImplUnitTest {
     private TestConfig testConfig;
 
     @Mock
-    private IOService ioService;
+    private LocalizedIOService ioService;
 
     @InjectMocks
     private ResultServiceImpl resultServiceImplTest;
@@ -30,7 +30,7 @@ class ResultServiceImplUnitTest {
         testResult.setRightAnswersCount(5);
 
         Mockito.when(testConfig.getRightAnswersCountToPass()).thenReturn(2);
-        Mockito.doNothing().when(ioService).printLine(Mockito.anyString());
+        Mockito.doNothing().when(ioService).printLineLocalized(Mockito.anyString());
 
         resultServiceImplTest.showResult(testResult);
 

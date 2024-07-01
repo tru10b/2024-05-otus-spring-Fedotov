@@ -21,8 +21,9 @@ public class AppProperties implements TestConfig, TestFileNameProvider, LocaleCo
     private Map<String, String> fileNameByLocaleTag;
 
     @ConstructorBinding
-    public AppProperties(Locale locale, Map<String, String> fileNameByLocaleTag) {
-        this.locale = locale;
+    public AppProperties(int rightAnswersCountToPass, String locale, Map<String, String> fileNameByLocaleTag) {
+        this.rightAnswersCountToPass = rightAnswersCountToPass;
+        setLocale(locale);
         this.fileNameByLocaleTag = fileNameByLocaleTag;
     }
 

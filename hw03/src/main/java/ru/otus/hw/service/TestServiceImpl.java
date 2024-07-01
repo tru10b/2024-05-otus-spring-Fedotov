@@ -11,7 +11,7 @@ import ru.otus.hw.domain.TestResult;
 @RequiredArgsConstructor
 public class TestServiceImpl implements TestService {
 
-    private final IOService ioService;
+    private final LocalizedIOService ioService;
 
     private final QuestionDao questionDao;
 
@@ -22,7 +22,7 @@ public class TestServiceImpl implements TestService {
         var testResult = new TestResult(student);
 
         ioService.printLine("");
-        ioService.printFormattedLine("Please answer the questions below%n");
+        ioService.printFormattedLineLocalized("TestService.answer.the.questions");
 
         for (var question : questions) {
             printQuestion(question);
@@ -36,7 +36,7 @@ public class TestServiceImpl implements TestService {
     private void printQuestion(Question question) {
         ioService.printLine(question.text());
         if (!question.answers().isEmpty()) {
-            ioService.printLine("List of answers:");
+            ioService.printLineLocalized("TestService.list.answers");
             for (int i = 0; i < question.answers().size(); i++) {
                 int j = i + 1;
                 ioService.printLine(j + " " + question.answers().get(i).text());
@@ -45,8 +45,8 @@ public class TestServiceImpl implements TestService {
     }
 
     private int getAnswer(Question question) {
-        return ioService.readIntForRangeWithPrompt(1, question.answers().size(),
-                "Choose your answer:", "Wrong input");
+        return ioService.readIntForRangeWithPromptLocalized(1, question.answers().size(),
+                "TestService.choose.answers", "TestService.wrong.input");
     }
 
     private boolean isCorrectAnswer(Question question, int answerNumber) {
