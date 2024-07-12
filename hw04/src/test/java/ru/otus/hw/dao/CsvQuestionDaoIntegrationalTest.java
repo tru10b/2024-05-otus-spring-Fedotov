@@ -1,11 +1,11 @@
 package ru.otus.hw.dao;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import ru.otus.hw.config.TestFileNameProvider;
 import ru.otus.hw.domain.Answer;
 import ru.otus.hw.domain.Question;
@@ -14,22 +14,21 @@ import ru.otus.hw.exceptions.QuestionReadException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-@RunWith(SpringRunner.class)
-@SpringBootTest(properties = {
-        InteractiveShellApplicationRunner.SPRING_SHELL_INTERACTIVE_ENABLED + "=false",
-        ScriptShellApplicationRunner.SPRING_SHELL_SCRIPT_ENABLED + "=false"
-})
-@ExtendWith(MockitoExtension.class)
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+
+@SpringBootTest(classes = {CsvQuestionDao.class})
 class CsvQuestionDaoIntegrationalTest {
 
-    @Mock
+    @MockBean
     private TestFileNameProvider appProperties;
 
-    @InjectMocks
+    @Autowired
     private CsvQuestionDao csvQuestionDao;
 
     @Test
+    @DisplayName("Exception is thrown")
     public void isExceptionThrowFindAll() {
 
         Mockito.when(appProperties.getTestFileName()).thenReturn("qustionss.csv");
@@ -39,6 +38,7 @@ class CsvQuestionDaoIntegrationalTest {
     }
 
     @Test
+    @DisplayName("All questions from file is found")
     public void isNormalFindAll() {
         Answer answer1 = new Answer("baby don't hurt me", false);
         Answer answer2 = new Answer("just good friends", false);

@@ -6,10 +6,10 @@ spring:
     # Если false то будут браться сообщения из дефолтного файла, если true, то из файла соответствующего системной локали
     fallbackToSystemLocale: false
   shell:
-    script:
-      enabled:true
     interactive:
-      enabled:true
+      enabled: true
+    script:
+      enabled: true
 test:
   rightAnswersCountToPass: 2
   locale: ru-RU
